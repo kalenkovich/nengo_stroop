@@ -1,6 +1,7 @@
 dependencies:
   - python=3.8.0
   - numpy=1.17.4
+  - ipykernel=5.1.4
   - pip=19.3.1
   - pip:
     - nengo==3.0.0
