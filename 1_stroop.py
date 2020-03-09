@@ -112,6 +112,7 @@ with model_rec:
         else:
             return stimuli[index%len(stimuli)][0]
     def color_func(t):
+        t -= 0.1
         index = int (t / (t_stim + t_isi))
         t = t % (t_stim + t_isi)
         if t < t_isi:
@@ -128,13 +129,13 @@ with model_rec:
     wm_w = spa.State(vocab, feedback=rec_weight_feedback * 2)
     wm_c = spa.State(vocab, feedback=rec_weight_feedback)
     
-    stim_w * rec_weight_input * 2 >> wm_w
+    stim_w * rec_weight_input >> wm_w
     stim_c * rec_weight_input >> wm_c    
     
     attention = spa.State(vocab, neurons_per_dimension=10)
     spa.sym.WORD * 0.45 + spa.sym.COLOR * 0.55 >> attention
    
-    wm = spa.State(vocab, feedback=rec_weight_feedback / 2)
+    wm = spa.State(vocab, feedback=rec_weight_feedback)
     
     (spa.sym.COLOR * wm_c + spa.sym.WORD * wm_w) * ~attention * rec_weight_input >> wm
    
