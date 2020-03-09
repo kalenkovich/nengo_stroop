@@ -21,7 +21,7 @@ vocab.populate(';'.join(fingers))
 
 stimuli = []
 for i in range(10):
-    w = np.random.choice(words)
+    w = np.random.choice(colors)
     c = np.random.choice(colors)
     stimuli.append((w,c))
 
