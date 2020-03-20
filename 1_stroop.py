@@ -102,8 +102,8 @@ axs[3].legend(vocab.keys(), loc='right')
 model_rec = spa.Network()
 with model_rec:
    
-    t_stim = 0.5
-    t_isi = 0.5
+    t_stim = 0.3
+    t_isi = 0.7
     def word_func(t):
         index = int (t / (t_stim + t_isi))
         t = t % (t_stim + t_isi)
@@ -133,11 +133,11 @@ with model_rec:
     stim_c * rec_weight_input >> wm_c    
     
     attention = spa.State(vocab, neurons_per_dimension=10)
-    spa.sym.WORD * 0.45 + spa.sym.COLOR * 0.55 >> attention
+    spa.sym.WORD * 0.48 + spa.sym.COLOR * 0.52 >> attention
    
     wm = spa.State(vocab, feedback=rec_weight_feedback)
     
-    (spa.sym.COLOR * wm_c + spa.sym.WORD * wm_w) * ~attention * rec_weight_input >> wm
+    (spa.sym.COLOR * wm_c + spa.sym.WORD * wm_w) * ~attention * rec_weight_input * 2 >> wm
    
     finger = spa.State(vocab)
    
@@ -159,8 +159,15 @@ with model_rec:
     p_finger = nengo.Probe(finger.output)
 
 
+stimuli = []
+for i in range(10):
+    w = np.random.choice(colors)
+    c = np.random.choice(colors)
+    stimuli.append((w,c))
+
+
 with nengo.Simulator(model_rec) as sim_rec:
-    sim_rec.run(5)
+    sim_rec.run(8)
 
 
 figuge, axs = plt.subplots(ncols=1, nrows=6, figsize=(10, 10))
