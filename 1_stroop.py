@@ -126,7 +126,7 @@ with model_rec:
     rec_weight_input = 1
     rec_weight_feedback = 0.5
     
-    wm_w = spa.State(vocab, feedback=rec_weight_feedback * 2)
+    wm_w = spa.State(vocab, feedback=rec_weight_feedback)
     wm_c = spa.State(vocab, feedback=rec_weight_feedback)
     
     stim_w * rec_weight_input >> wm_w
